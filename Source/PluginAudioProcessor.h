@@ -13,12 +13,12 @@
 //==============================================================================
 /**
 */
-class MintBassAudioProcessor  : public juce::AudioProcessor
+class PluginAudioProcessor  : public juce::AudioProcessor
 {
 public:
     //==============================================================================
-    MintBassAudioProcessor();
-    ~MintBassAudioProcessor() override;
+    PluginAudioProcessor();
+    ~PluginAudioProcessor() override;
 
     //==============================================================================
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
@@ -55,5 +55,5 @@ public:
 
 private:
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MintBassAudioProcessor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PluginAudioProcessor)
 };

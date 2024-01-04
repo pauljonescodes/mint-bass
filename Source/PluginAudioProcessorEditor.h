@@ -9,16 +9,16 @@
 #pragma once
 
 #include <JuceHeader.h>
-#include "PluginProcessor.h"
+#include "PluginAudioProcessor.h"
 
 //==============================================================================
 /**
 */
-class MintBassAudioProcessorEditor  : public juce::AudioProcessorEditor
+class PluginAudioProcessorEditor  : public juce::AudioProcessorEditor
 {
 public:
-    MintBassAudioProcessorEditor (MintBassAudioProcessor&);
-    ~MintBassAudioProcessorEditor() override;
+    PluginAudioProcessorEditor (PluginAudioProcessor&);
+    ~PluginAudioProcessorEditor() override;
 
     //==============================================================================
     void paint (juce::Graphics&) override;
@@ -27,7 +27,7 @@ public:
 private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
-    MintBassAudioProcessor& audioProcessor;
+    PluginAudioProcessor& audioProcessor;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MintBassAudioProcessorEditor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PluginAudioProcessorEditor)
 };

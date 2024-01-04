@@ -3,14 +3,61 @@
 <JUCERPROJECT id="TOyX9m" name="MintBass" projectType="audioplug" useAppConfig="0"
               addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1">
   <MAINGROUP id="ChyTFU" name="MintBass">
+    <GROUP id="{A298CB85-1BED-8F5B-2225-C09DF46073B2}" name="Assets">
+      <FILE id="uoDdXe" name="23.wav" compile="0" resource="1" file="Assets/23.wav"/>
+      <FILE id="EIyw0n" name="24.wav" compile="0" resource="1" file="Assets/24.wav"/>
+      <FILE id="PqcIQa" name="25.wav" compile="0" resource="1" file="Assets/25.wav"/>
+      <FILE id="pvAOGi" name="26.wav" compile="0" resource="1" file="Assets/26.wav"/>
+      <FILE id="Ljx9gd" name="28.wav" compile="0" resource="1" file="Assets/28.wav"/>
+      <FILE id="ZTfXWR" name="29.wav" compile="0" resource="1" file="Assets/29.wav"/>
+      <FILE id="aCIquY" name="30.wav" compile="0" resource="1" file="Assets/30.wav"/>
+      <FILE id="CDcXxU" name="31.wav" compile="0" resource="1" file="Assets/31.wav"/>
+      <FILE id="oad4Iw" name="32.wav" compile="0" resource="1" file="Assets/32.wav"/>
+      <FILE id="c1wZAD" name="33.wav" compile="0" resource="1" file="Assets/33.wav"/>
+      <FILE id="oHoqCx" name="34.wav" compile="0" resource="1" file="Assets/34.wav"/>
+      <FILE id="yuhBMr" name="35.wav" compile="0" resource="1" file="Assets/35.wav"/>
+      <FILE id="lvcidk" name="36.wav" compile="0" resource="1" file="Assets/36.wav"/>
+      <FILE id="Z8lpac" name="37.wav" compile="0" resource="1" file="Assets/37.wav"/>
+      <FILE id="s9fSMn" name="38.wav" compile="0" resource="1" file="Assets/38.wav"/>
+      <FILE id="hRGfCp" name="39.wav" compile="0" resource="1" file="Assets/39.wav"/>
+      <FILE id="OwEens" name="40.wav" compile="0" resource="1" file="Assets/40.wav"/>
+      <FILE id="tBmDIt" name="41.wav" compile="0" resource="1" file="Assets/41.wav"/>
+      <FILE id="IbcRl5" name="42.wav" compile="0" resource="1" file="Assets/42.wav"/>
+      <FILE id="wz8BWg" name="43.wav" compile="0" resource="1" file="Assets/43.wav"/>
+      <FILE id="T0Xrrw" name="44.wav" compile="0" resource="1" file="Assets/44.wav"/>
+      <FILE id="vwm6X3" name="45.wav" compile="0" resource="1" file="Assets/45.wav"/>
+      <FILE id="O2MZmB" name="46.wav" compile="0" resource="1" file="Assets/46.wav"/>
+      <FILE id="eWtgpu" name="47.wav" compile="0" resource="1" file="Assets/47.wav"/>
+      <FILE id="NhgETt" name="48.wav" compile="0" resource="1" file="Assets/48.wav"/>
+      <FILE id="i7rANz" name="49.wav" compile="0" resource="1" file="Assets/49.wav"/>
+      <FILE id="xuJ93T" name="50.wav" compile="0" resource="1" file="Assets/50.wav"/>
+      <FILE id="LC9Pg2" name="51.wav" compile="0" resource="1" file="Assets/51.wav"/>
+      <FILE id="lj9AQJ" name="52.wav" compile="0" resource="1" file="Assets/52.wav"/>
+      <FILE id="SHLAn7" name="53.wav" compile="0" resource="1" file="Assets/53.wav"/>
+      <FILE id="SOnh1x" name="54.wav" compile="0" resource="1" file="Assets/54.wav"/>
+      <FILE id="ZiGpCX" name="55.wav" compile="0" resource="1" file="Assets/55.wav"/>
+      <FILE id="vJLOSI" name="56.wav" compile="0" resource="1" file="Assets/56.wav"/>
+      <FILE id="j2hAmN" name="57.wav" compile="0" resource="1" file="Assets/57.wav"/>
+      <FILE id="j4NSJN" name="58.wav" compile="0" resource="1" file="Assets/58.wav"/>
+      <FILE id="O7CGxy" name="59.wav" compile="0" resource="1" file="Assets/59.wav"/>
+    </GROUP>
     <GROUP id="{23511E73-DB4A-C528-B3B6-4E879A5E797E}" name="Source">
-      <FILE id="pV0oab" name="PluginProcessor.cpp" compile="1" resource="0"
-            file="Source/PluginProcessor.cpp"/>
-      <FILE id="PByLLA" name="PluginProcessor.h" compile="0" resource="0"
-            file="Source/PluginProcessor.h"/>
-      <FILE id="neNMt1" name="PluginEditor.cpp" compile="1" resource="0"
-            file="Source/PluginEditor.cpp"/>
-      <FILE id="FA2Ygm" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+      <FILE id="pV0oab" name="PluginAudioProcessor.cpp" compile="1" resource="0"
+            file="Source/PluginAudioProcessor.cpp"/>
+      <FILE id="PByLLA" name="PluginAudioProcessor.h" compile="0" resource="0"
+            file="Source/PluginAudioProcessor.h"/>
+      <FILE id="neNMt1" name="PluginAudioProcessorEditor.cpp" compile="1"
+            resource="0" file="Source/PluginAudioProcessorEditor.cpp"/>
+      <FILE id="FA2Ygm" name="PluginAudioProcessorEditor.h" compile="0" resource="0"
+            file="Source/PluginAudioProcessorEditor.h"/>
+      <FILE id="cHgou5" name="PluginConstants.h" compile="0" resource="0"
+            file="Source/PluginConstants.h"/>
+      <FILE id="xtypa6" name="PluginSynthesiser.cpp" compile="1" resource="0"
+            file="Source/PluginSynthesiser.cpp"/>
+      <FILE id="NLNOzM" name="PluginSynthesiser.h" compile="0" resource="0"
+            file="Source/PluginSynthesiser.h"/>
+      <FILE id="jUQ6as" name="PluginUtils.cpp" compile="1" resource="0" file="Source/PluginUtils.cpp"/>
+      <FILE id="sTohVe" name="PluginUtils.h" compile="0" resource="0" file="Source/PluginUtils.h"/>
     </GROUP>
   </MAINGROUP>
   <MODULES>

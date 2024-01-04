@@ -6,11 +6,11 @@
   ==============================================================================
 */
 
-#include "PluginProcessor.h"
-#include "PluginEditor.h"
+#include "PluginAudioProcessor.h"
+#include "PluginAudioProcessorEditor.h"
 
 //==============================================================================
-MintBassAudioProcessor::MintBassAudioProcessor()
+PluginAudioProcessor::PluginAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
      : AudioProcessor (BusesProperties()
                      #if ! JucePlugin_IsMidiEffect
@@ -22,19 +22,24 @@ MintBassAudioProcessor::MintBassAudioProcessor()
                        )
 #endif
 {
+	for (int resourceIndex = 0; resourceIndex < BinaryData::namedResourceListSize; resourceIndex++)
+	{
+		std::string namedResource = BinaryData::namedResourceList[resourceIndex];
+		
+	}
 }
 
-MintBassAudioProcessor::~MintBassAudioProcessor()
+PluginAudioProcessor::~PluginAudioProcessor()
 {
 }
 
 //==============================================================================
-const juce::String MintBassAudioProcessor::getName() const
+const juce::String PluginAudioProcessor::getName() const
 {
     return JucePlugin_Name;
 }
 
-bool MintBassAudioProcessor::acceptsMidi() const
+bool PluginAudioProcessor::acceptsMidi() const
 {
    #if JucePlugin_WantsMidiInput
     return true;
@@ -43,7 +48,7 @@ bool MintBassAudioProcessor::acceptsMidi() const
    #endif
 }
 
-bool MintBassAudioProcessor::producesMidi() const
+bool PluginAudioProcessor::producesMidi() const
 {
    #if JucePlugin_ProducesMidiOutput
     return true;
@@ -52,7 +57,7 @@ bool MintBassAudioProcessor::producesMidi() const
    #endif
 }
 
-bool MintBassAudioProcessor::isMidiEffect() const
+bool PluginAudioProcessor::isMidiEffect() const
 {
    #if JucePlugin_IsMidiEffect
     return true;
@@ -61,50 +66,50 @@ bool MintBassAudioProcessor::isMidiEffect() const
    #endif
 }
 
-double MintBassAudioProcessor::getTailLengthSeconds() const
+double PluginAudioProcessor::getTailLengthSeconds() const
 {
     return 0.0;
 }
 
-int MintBassAudioProcessor::getNumPrograms()
+int PluginAudioProcessor::getNumPrograms()
 {
     return 1;   // NB: some hosts don't cope very well if you tell them there are 0 programs,
                 // so this should be at least 1, even if you're not really implementing programs.
 }
 
-int MintBassAudioProcessor::getCurrentProgram()
+int PluginAudioProcessor::getCurrentProgram()
 {
     return 0;
 }
 
-void MintBassAudioProcessor::setCurrentProgram (int index)
+void PluginAudioProcessor::setCurrentProgram (int index)
 {
 }
 
-const juce::String MintBassAudioProcessor::getProgramName (int index)
+const juce::String PluginAudioProcessor::getProgramName (int index)
 {
     return {};
 }
 
-void MintBassAudioProcessor::changeProgramName (int index, const juce::String& newName)
+void PluginAudioProcessor::changeProgramName (int index, const juce::String& newName)
 {
 }
 
 //==============================================================================
-void MintBassAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
+void PluginAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
 }
 
-void MintBassAudioProcessor::releaseResources()
+void PluginAudioProcessor::releaseResources()
 {
     // When playback stops, you can use this as an opportunity to free up any
     // spare memory, etc.
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
-bool MintBassAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
+bool PluginAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
 {
   #if JucePlugin_IsMidiEffect
     juce::ignoreUnused (layouts);
@@ -129,27 +134,17 @@ bool MintBassAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts)
 }
 #endif
 
-void MintBassAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
+void PluginAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
     juce::ScopedNoDenormals noDenormals;
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
 
-    // In case we have more outputs than inputs, this code clears any output
-    // channels that didn't contain input data, (because these aren't
-    // guaranteed to be empty - they may contain garbage).
-    // This is here to avoid people getting screaming feedback
-    // when they first compile a plugin, but obviously you don't need to keep
-    // this code if your algorithm always overwrites all the output channels.
+
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
-    // This is the place where you'd normally do the guts of your plugin's
-    // audio processing...
-    // Make sure to reset the state if your inner loop is processing
-    // the samples and the outer loop is handling the channels.
-    // Alternatively, you can process the samples with the channels
-    // interleaved by keeping the same state.
+
     for (int channel = 0; channel < totalNumInputChannels; ++channel)
     {
         auto* channelData = buffer.getWritePointer (channel);
@@ -159,25 +154,25 @@ void MintBassAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juc
 }
 
 //==============================================================================
-bool MintBassAudioProcessor::hasEditor() const
+bool PluginAudioProcessor::hasEditor() const
 {
     return true; // (change this to false if you choose to not supply an editor)
 }
 
-juce::AudioProcessorEditor* MintBassAudioProcessor::createEditor()
+juce::AudioProcessorEditor* PluginAudioProcessor::createEditor()
 {
-    return new MintBassAudioProcessorEditor (*this);
+    return new PluginAudioProcessorEditor (*this);
 }
 
 //==============================================================================
-void MintBassAudioProcessor::getStateInformation (juce::MemoryBlock& destData)
+void PluginAudioProcessor::getStateInformation (juce::MemoryBlock& destData)
 {
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
 }
 
-void MintBassAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
+void PluginAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
@@ -187,5 +182,5 @@ void MintBassAudioProcessor::setStateInformation (const void* data, int sizeInBy
 // This creates new instances of the plugin..
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
-    return new MintBassAudioProcessor();
+    return new PluginAudioProcessor();
 }
