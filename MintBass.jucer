@@ -1,45 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="TOyX9m" name="MintBass" projectType="audioplug" useAppConfig="0"
-              addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1">
+              addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1"
+              pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn"
+              pluginManufacturer="propunkdsp" aaxIdentifier="com.propunkdsp.mintbass">
   <MAINGROUP id="ChyTFU" name="MintBass">
     <GROUP id="{A298CB85-1BED-8F5B-2225-C09DF46073B2}" name="Assets">
-      <FILE id="uoDdXe" name="23.wav" compile="0" resource="1" file="Assets/23.wav"/>
-      <FILE id="EIyw0n" name="24.wav" compile="0" resource="1" file="Assets/24.wav"/>
-      <FILE id="PqcIQa" name="25.wav" compile="0" resource="1" file="Assets/25.wav"/>
-      <FILE id="pvAOGi" name="26.wav" compile="0" resource="1" file="Assets/26.wav"/>
-      <FILE id="Ljx9gd" name="28.wav" compile="0" resource="1" file="Assets/28.wav"/>
-      <FILE id="ZTfXWR" name="29.wav" compile="0" resource="1" file="Assets/29.wav"/>
-      <FILE id="aCIquY" name="30.wav" compile="0" resource="1" file="Assets/30.wav"/>
-      <FILE id="CDcXxU" name="31.wav" compile="0" resource="1" file="Assets/31.wav"/>
-      <FILE id="oad4Iw" name="32.wav" compile="0" resource="1" file="Assets/32.wav"/>
-      <FILE id="c1wZAD" name="33.wav" compile="0" resource="1" file="Assets/33.wav"/>
-      <FILE id="oHoqCx" name="34.wav" compile="0" resource="1" file="Assets/34.wav"/>
-      <FILE id="yuhBMr" name="35.wav" compile="0" resource="1" file="Assets/35.wav"/>
-      <FILE id="lvcidk" name="36.wav" compile="0" resource="1" file="Assets/36.wav"/>
-      <FILE id="Z8lpac" name="37.wav" compile="0" resource="1" file="Assets/37.wav"/>
-      <FILE id="s9fSMn" name="38.wav" compile="0" resource="1" file="Assets/38.wav"/>
-      <FILE id="hRGfCp" name="39.wav" compile="0" resource="1" file="Assets/39.wav"/>
-      <FILE id="OwEens" name="40.wav" compile="0" resource="1" file="Assets/40.wav"/>
-      <FILE id="tBmDIt" name="41.wav" compile="0" resource="1" file="Assets/41.wav"/>
-      <FILE id="IbcRl5" name="42.wav" compile="0" resource="1" file="Assets/42.wav"/>
-      <FILE id="wz8BWg" name="43.wav" compile="0" resource="1" file="Assets/43.wav"/>
-      <FILE id="T0Xrrw" name="44.wav" compile="0" resource="1" file="Assets/44.wav"/>
-      <FILE id="vwm6X3" name="45.wav" compile="0" resource="1" file="Assets/45.wav"/>
-      <FILE id="O2MZmB" name="46.wav" compile="0" resource="1" file="Assets/46.wav"/>
-      <FILE id="eWtgpu" name="47.wav" compile="0" resource="1" file="Assets/47.wav"/>
-      <FILE id="NhgETt" name="48.wav" compile="0" resource="1" file="Assets/48.wav"/>
-      <FILE id="i7rANz" name="49.wav" compile="0" resource="1" file="Assets/49.wav"/>
-      <FILE id="xuJ93T" name="50.wav" compile="0" resource="1" file="Assets/50.wav"/>
-      <FILE id="LC9Pg2" name="51.wav" compile="0" resource="1" file="Assets/51.wav"/>
-      <FILE id="lj9AQJ" name="52.wav" compile="0" resource="1" file="Assets/52.wav"/>
-      <FILE id="SHLAn7" name="53.wav" compile="0" resource="1" file="Assets/53.wav"/>
-      <FILE id="SOnh1x" name="54.wav" compile="0" resource="1" file="Assets/54.wav"/>
-      <FILE id="ZiGpCX" name="55.wav" compile="0" resource="1" file="Assets/55.wav"/>
-      <FILE id="vJLOSI" name="56.wav" compile="0" resource="1" file="Assets/56.wav"/>
-      <FILE id="j2hAmN" name="57.wav" compile="0" resource="1" file="Assets/57.wav"/>
-      <FILE id="j4NSJN" name="58.wav" compile="0" resource="1" file="Assets/58.wav"/>
-      <FILE id="O7CGxy" name="59.wav" compile="0" resource="1" file="Assets/59.wav"/>
+      <FILE id="L0GK9P" name="Sample 23.wav" compile="0" resource="1" file="Assets/Sample 23.wav"/>
+      <FILE id="pu5eNq" name="Sample 24.wav" compile="0" resource="1" file="Assets/Sample 24.wav"/>
+      <FILE id="Nookxv" name="Sample 25.wav" compile="0" resource="1" file="Assets/Sample 25.wav"/>
+      <FILE id="UeS6Hq" name="Sample 26.wav" compile="0" resource="1" file="Assets/Sample 26.wav"/>
+      <FILE id="dVMAza" name="Sample 27.wav" compile="0" resource="1" file="Assets/Sample 27.wav"/>
+      <FILE id="WiOAF7" name="Sample 28.wav" compile="0" resource="1" file="Assets/Sample 28.wav"/>
+      <FILE id="IpGgOj" name="Sample 29.wav" compile="0" resource="1" file="Assets/Sample 29.wav"/>
+      <FILE id="LZCLRb" name="Sample 30.wav" compile="0" resource="1" file="Assets/Sample 30.wav"/>
+      <FILE id="tixrWu" name="Sample 31.wav" compile="0" resource="1" file="Assets/Sample 31.wav"/>
+      <FILE id="xFSMJI" name="Sample 32.wav" compile="0" resource="1" file="Assets/Sample 32.wav"/>
+      <FILE id="gx4soK" name="Sample 33.wav" compile="0" resource="1" file="Assets/Sample 33.wav"/>
+      <FILE id="G3KgtR" name="Sample 34.wav" compile="0" resource="1" file="Assets/Sample 34.wav"/>
+      <FILE id="i5zKG5" name="Sample 35.wav" compile="0" resource="1" file="Assets/Sample 35.wav"/>
+      <FILE id="MyaG5K" name="Sample 36.wav" compile="0" resource="1" file="Assets/Sample 36.wav"/>
+      <FILE id="uWNlOi" name="Sample 37.wav" compile="0" resource="1" file="Assets/Sample 37.wav"/>
+      <FILE id="L09ax2" name="Sample 38.wav" compile="0" resource="1" file="Assets/Sample 38.wav"/>
+      <FILE id="YE8Mys" name="Sample 39.wav" compile="0" resource="1" file="Assets/Sample 39.wav"/>
+      <FILE id="c4yCDE" name="Sample 40.wav" compile="0" resource="1" file="Assets/Sample 40.wav"/>
+      <FILE id="xfZKAE" name="Sample 41.wav" compile="0" resource="1" file="Assets/Sample 41.wav"/>
+      <FILE id="e1iJr8" name="Sample 42.wav" compile="0" resource="1" file="Assets/Sample 42.wav"/>
+      <FILE id="AIAk67" name="Sample 43.wav" compile="0" resource="1" file="Assets/Sample 43.wav"/>
+      <FILE id="F32nV4" name="Sample 44.wav" compile="0" resource="1" file="Assets/Sample 44.wav"/>
+      <FILE id="UVIUOW" name="Sample 45.wav" compile="0" resource="1" file="Assets/Sample 45.wav"/>
+      <FILE id="WO5yIN" name="Sample 46.wav" compile="0" resource="1" file="Assets/Sample 46.wav"/>
+      <FILE id="VnwCu4" name="Sample 47.wav" compile="0" resource="1" file="Assets/Sample 47.wav"/>
+      <FILE id="q5KqDC" name="Sample 48.wav" compile="0" resource="1" file="Assets/Sample 48.wav"/>
+      <FILE id="RoAceS" name="Sample 49.wav" compile="0" resource="1" file="Assets/Sample 49.wav"/>
+      <FILE id="dqTnd0" name="Sample 50.wav" compile="0" resource="1" file="Assets/Sample 50.wav"/>
+      <FILE id="Orso7b" name="Sample 51.wav" compile="0" resource="1" file="Assets/Sample 51.wav"/>
+      <FILE id="fPfCkg" name="Sample 52.wav" compile="0" resource="1" file="Assets/Sample 52.wav"/>
+      <FILE id="EvGZ2y" name="Sample 53.wav" compile="0" resource="1" file="Assets/Sample 53.wav"/>
+      <FILE id="tEBNha" name="Sample 54.wav" compile="0" resource="1" file="Assets/Sample 54.wav"/>
+      <FILE id="BcWv7Q" name="Sample 55.wav" compile="0" resource="1" file="Assets/Sample 55.wav"/>
+      <FILE id="VpXdhC" name="Sample 56.wav" compile="0" resource="1" file="Assets/Sample 56.wav"/>
+      <FILE id="QZ1AbH" name="Sample 57.wav" compile="0" resource="1" file="Assets/Sample 57.wav"/>
+      <FILE id="aGZuFG" name="Sample 58.wav" compile="0" resource="1" file="Assets/Sample 58.wav"/>
+      <FILE id="smGDjy" name="Sample 59.wav" compile="0" resource="1" file="Assets/Sample 59.wav"/>
     </GROUP>
     <GROUP id="{23511E73-DB4A-C528-B3B6-4E879A5E797E}" name="Source">
       <FILE id="pV0oab" name="PluginAudioProcessor.cpp" compile="1" resource="0"

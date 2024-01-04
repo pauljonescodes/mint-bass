@@ -9,6 +9,7 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "PluginSynthesiser.h"
 
 //==============================================================================
 /**
@@ -54,6 +55,9 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
 
 private:
+    std::unique_ptr<juce::AudioFormatManager> mAudioFormatManagerPtr;
+    std::unique_ptr<PluginSynthesiser> mSynthesiserPtr;
+
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PluginAudioProcessor)
 };
