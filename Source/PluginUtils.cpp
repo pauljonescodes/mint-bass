@@ -39,3 +39,29 @@ std::vector<std::string> PluginUtils::split(const std::string& string, const std
     }
     return result;
 }
+
+std::string PluginUtils::toTitleCase(const std::string& str) {
+    std::string result;
+    bool nextUpper = true;
+
+    for (char ch : str) {
+        if (ch == '_') {
+            nextUpper = true;
+            result += " ";
+        }
+        else if (nextUpper) {
+            result += std::toupper(ch);
+            nextUpper = false; // Reset the flag
+        }
+        else {
+            if (result.empty()) { // first letter in lowercase for camelCase
+                result += std::tolower(ch);
+            }
+            else {
+                result += ch; // preserve the original case for the rest
+            }
+        }
+    }
+
+    return result;
+}

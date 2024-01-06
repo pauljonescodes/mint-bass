@@ -26,6 +26,8 @@ void PluginSynthesiser::addResource(
     const int bitRate,
     const int bitDepth,
     const int midiNote,
+    double attackTimeSecs,
+    double releaseTimeSecs,
     juce::AudioFormatManager& audioFormatManager
 ) {
     DBG(__func__ + resourceName + " " + std::to_string(bitRate) + " " + std::to_string(bitDepth) + " " + std::to_string(midiNote));
@@ -44,10 +46,22 @@ void PluginSynthesiser::addResource(
         *reader, 
         range, 
         midiNote, 
-        Constants::sampleAttackTimeSeconds, 
-        Constants::sampleReleaseTimeSeconds,
+        attackTimeSecs,
+        releaseTimeSecs,
         maxSampleLengthSeconds);
 
     addSound(sound);
     addVoice(new juce::SamplerVoice());
+}
+
+void PluginSynthesiser::setSoundsEnvelopeParameters(juce::ADSR::Parameters parametersToUse)
+{
+    for (auto soundIndex = 0; soundIndex < getNumSounds(); soundIndex++)
+    {
+        auto* samplerSound = dynamic_cast<juce::SamplerSound*>(getSound(soundIndex).get());
+        if (samplerSound != nullptr)
+        {
+            samplerSound->setEnvelopeParameters(parametersToUse);
+        }
+    }
 }

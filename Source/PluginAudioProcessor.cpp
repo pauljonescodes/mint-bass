@@ -11,6 +11,7 @@
 #include "PluginConstants.h"
 #include "PluginUtils.h"
 #include <cassert>
+#include "PluginParameters.h"
 
 //==============================================================================
 PluginAudioProcessor::PluginAudioProcessor()
@@ -23,6 +24,10 @@ PluginAudioProcessor::PluginAudioProcessor()
 		.withOutput(Constants::outputBusName, juce::AudioChannelSet::stereo(), true)
 #endif
 	),
+	mAudioProcessorValueTreeStatePtr(std::make_unique<juce::AudioProcessorValueTreeState>(*this,
+		nullptr,
+		juce::Identifier(Parameters::apvtsIdentifier),
+		createParameterLayout())),
 	mAudioFormatManagerPtr(std::make_unique<juce::AudioFormatManager>()),
 	mSynthesiserPtr(std::make_unique<PluginSynthesiser>())
 #endif
@@ -30,6 +35,10 @@ PluginAudioProcessor::PluginAudioProcessor()
 	DBG(__func__);
 
 	mAudioFormatManagerPtr->registerBasicFormats();
+
+	const auto sampleAttackTime = mAudioProcessorValueTreeStatePtr->getParameterAsValue(Parameters::sampleAttackTimeId).getValue();
+	const auto sampleReleaseTime = mAudioProcessorValueTreeStatePtr->getParameterAsValue(Parameters::sampleReleaseTimeId).getValue();
+
 
 	for (int resourceIndex = 0; resourceIndex < BinaryData::namedResourceListSize; resourceIndex++)
 	{
@@ -47,6 +56,8 @@ PluginAudioProcessor::PluginAudioProcessor()
 					Constants::sampleBitRate,
 					Constants::sampleBitDepth,
 					midiNote,
+					sampleAttackTime,
+					sampleReleaseTime,
 					*mAudioFormatManagerPtr.get());
 			}
 			else
@@ -59,6 +70,45 @@ PluginAudioProcessor::PluginAudioProcessor()
 			break;
 		}
 	}
+
+	for (const auto& parameterIdAndEnum : Parameters::parameterIdToEnumMap) {
+		mAudioProcessorValueTreeStatePtr->addParameterListener(parameterIdAndEnum.first, this);
+	}
+}
+
+juce::AudioProcessorValueTreeState::ParameterLayout PluginAudioProcessor::createParameterLayout()
+{
+	juce::AudioProcessorValueTreeState::ParameterLayout layout;
+	
+	layout.add(
+		std::make_unique<juce::AudioParameterFloat>(
+			juce::ParameterID{ Parameters::sampleAttackTimeId, Parameters::apvtsVersion },
+			PluginUtils::toTitleCase(Parameters::sampleAttackTimeId),
+			Parameters::sampleAttackTimeNormalisableRange,
+			Parameters::sampleAttackTimeDefaultValue));
+
+	layout.add(
+		std::make_unique<juce::AudioParameterFloat>(
+			juce::ParameterID{ Parameters::sampleDecayTimeId, Parameters::apvtsVersion },
+			PluginUtils::toTitleCase(Parameters::sampleDecayTimeId),
+			Parameters::sampleDecayTimeNormalisableRange,
+			Parameters::sampleDecayTimeDefaultValue));
+
+	layout.add(
+		std::make_unique<juce::AudioParameterFloat>(
+			juce::ParameterID{ Parameters::sampleSustainLevelId, Parameters::apvtsVersion },
+			PluginUtils::toTitleCase(Parameters::sampleSustainLevelId),
+			Parameters::sampleSustainLevelNormalisableRange,
+			Parameters::sampleSustainLevelDefaultValue));
+
+	layout.add(
+		std::make_unique<juce::AudioParameterFloat>(
+			juce::ParameterID{ Parameters::sampleReleaseTimeId, Parameters::apvtsVersion },
+			PluginUtils::toTitleCase(Parameters::sampleReleaseTimeId),
+			Parameters::sampleReleaseTimeNormalisableRange,
+			Parameters::sampleReleaseTimeDefaultValue));
+
+	return layout;
 }
 
 PluginAudioProcessor::~PluginAudioProcessor()
@@ -142,8 +192,14 @@ void PluginAudioProcessor::changeProgramName(int index, const juce::String& newN
 void PluginAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
 	DBG(__func__);
-	
+
 	mSynthesiserPtr->setCurrentPlaybackSampleRate(sampleRate);
+
+	for (const auto& patameterIdToEnum : Parameters::parameterIdToEnumMap)
+	{
+		auto newValue = mAudioProcessorValueTreeStatePtr->getParameterAsValue(patameterIdToEnum.first).getValue();
+		parameterChanged(patameterIdToEnum.first, newValue);
+	}
 }
 
 void PluginAudioProcessor::releaseResources()
@@ -190,7 +246,7 @@ void PluginAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::
 	{
 		buffer.clear(i, 0, buffer.getNumSamples());
 	}
-		
+
 	mSynthesiserPtr->renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
 }
 
@@ -210,23 +266,69 @@ juce::AudioProcessorEditor* PluginAudioProcessor::createEditor()
 //==============================================================================
 void PluginAudioProcessor::getStateInformation(juce::MemoryBlock& destData)
 {
-	DBG(__func__);
-	// You should use this method to store your parameters in the memory block.
-	// You could do that either as raw data, or use the XML or ValueTree classes
-	// as intermediaries to make it easy to save and load complex data.
+	auto state = mAudioProcessorValueTreeStatePtr.get()->copyState();
+	std::unique_ptr<juce::XmlElement> xml(state.createXml());
+	copyXmlToBinary(*xml, destData);
 }
 
 void PluginAudioProcessor::setStateInformation(const void* data, int sizeInBytes)
 {
-	DBG(__func__);
-	// You should use this method to restore your parameters from this memory block,
-	// whose contents will have been created by the getStateInformation() call.
-}
+	std::unique_ptr<juce::XmlElement> xmlState(getXmlFromBinary(data, sizeInBytes));
+	const auto valueTreeFromXml = juce::ValueTree::fromXml(*xmlState);
 
+	if (xmlState.get() != nullptr)
+	{
+		mAudioProcessorValueTreeStatePtr.get()->replaceState(valueTreeFromXml);
+	}
+}
 //==============================================================================
 // This creates new instances of the plugin..
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
 	DBG(__func__);
 	return new PluginAudioProcessor();
+}
+
+void PluginAudioProcessor::parameterChanged(const juce::String& parameterIdJuceString, float newValue)
+{
+	const auto sampleAttackTime = mAudioProcessorValueTreeStatePtr->getParameterAsValue(Parameters::sampleAttackTimeId).getValue();
+	const auto sampleDecayTime = mAudioProcessorValueTreeStatePtr->getParameterAsValue(Parameters::sampleDecayTimeId).getValue();
+	const auto sampleSustainLevel = mAudioProcessorValueTreeStatePtr->getParameterAsValue(Parameters::sampleSustainLevelId).getValue();
+	const auto sampleReleaseTime = mAudioProcessorValueTreeStatePtr->getParameterAsValue(Parameters::sampleReleaseTimeId).getValue();
+
+	switch (Parameters::parameterIdToEnumMap.at(parameterIdJuceString.toStdString()))
+	{
+	case Parameters::ParameterEnum::SampleAttackTime:
+		mSynthesiserPtr->setSoundsEnvelopeParameters(juce::ADSR::Parameters(
+			newValue,
+			sampleDecayTime,
+			sampleSustainLevel,
+			sampleReleaseTime
+		));
+		break;
+	case Parameters::ParameterEnum::SampleDecayTime:
+		mSynthesiserPtr->setSoundsEnvelopeParameters(juce::ADSR::Parameters(
+			sampleAttackTime,
+			newValue,
+			sampleSustainLevel,
+			sampleReleaseTime
+		));
+		break;
+	case Parameters::ParameterEnum::SampleSustainLevel:
+		mSynthesiserPtr->setSoundsEnvelopeParameters(juce::ADSR::Parameters(
+			sampleAttackTime,
+			sampleDecayTime,
+			newValue,
+			sampleReleaseTime
+		));
+		break;
+	case Parameters::ParameterEnum::SampleReleaseTime:
+		mSynthesiserPtr->setSoundsEnvelopeParameters(juce::ADSR::Parameters(
+			sampleAttackTime,
+			sampleDecayTime,
+			sampleSustainLevel,
+			newValue
+		));
+		break;
+	}
 }

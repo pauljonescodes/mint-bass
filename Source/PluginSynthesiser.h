@@ -18,11 +18,15 @@ public:
 	PluginSynthesiser();
 	~PluginSynthesiser();
 
+	void setSoundsEnvelopeParameters(juce::ADSR::Parameters parametersToUse);
+
 	void addResource(
 		const std::string name,
 		const int bitRate,
 		const int bitDepth,
 		const int midiNote,
+		double attackTimeSecs,
+		double releaseTimeSecs,
 		juce::AudioFormatManager& audioFormatManager
 	);
 };

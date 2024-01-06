@@ -20,4 +20,6 @@ public:
     static std::vector<std::string> split(
         const std::string& s, 
         const std::string& delim);
+
+    static std::string toTitleCase(const std::string& str);
 };

@@ -10,6 +10,10 @@ Get-ChildItem -Filter "_ *.wav" | Rename-Item -NewName {$_.Name -replace '^_ '}
 Get-ChildItem -Filter "*.wav" | Rename-Item -NewName {"Sample " + $_.Name}
 ```
 
+```PowerShell
+Get-ChildItem -Filter "*.wav" | Rename-Item -NewName {$_.Name -replace '-[45](?=\.\w+$)'}
+```
+
 - B 5
 - E 8 
 - A 7

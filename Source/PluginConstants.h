@@ -16,9 +16,7 @@ namespace Constants {
     static const std::string outputBusName = "Output";
 
     static const std::string samplePrefix = "Sample";
-    static constexpr int sampleBitRate = 44100;
+    
+    static constexpr int sampleBitRate = 192000;
     static constexpr int sampleBitDepth = 24;
-
-    static constexpr double sampleAttackTimeSeconds = 0.001f;
-    static constexpr double sampleReleaseTimeSeconds = 0.1f;
 }

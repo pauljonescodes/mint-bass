@@ -14,7 +14,7 @@
 //==============================================================================
 /**
 */
-class PluginAudioProcessor  : public juce::AudioProcessor
+class PluginAudioProcessor  : public juce::AudioProcessor, juce::AudioProcessorValueTreeState::Listener
 {
 public:
     //==============================================================================
@@ -54,7 +54,12 @@ public:
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
+    //==============================================================================
+    void parameterChanged(const juce::String& parameterID, float newValue) override;
+    juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
+
 private:
+    std::unique_ptr<juce::AudioProcessorValueTreeState> mAudioProcessorValueTreeStatePtr;
     std::unique_ptr<juce::AudioFormatManager> mAudioFormatManagerPtr;
     std::unique_ptr<PluginSynthesiser> mSynthesiserPtr;
 
